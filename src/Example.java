@@ -3,22 +3,29 @@
 This is a simple Java program.
 Call this file "Example.java".
 */
-class Example {
+class Example implements Runnable{
 // Your program begins with a call to main().
+	Thread t ;
+	
+	Example() {
+		// Create a new, Second Thread
+		t = new Thread(this, "Demo Thread");
+		System.out.println("Second Thread: " + t);
+		t.start();
+	}
 
-public static void main(String args[])  {
-	Thread t = Thread.currentThread();
-	System.out.println("Current thread: " + t);
-	// change the name of the thread
-	t.setName("My Thread");
-	System.out.println("After name change: " + t);
+@Override
+public void run() {
+	// TODO Auto-generated method stub
 	try {
-	for(int n = 5; n > 0; n--) {
-	System.out.println(n);
-	Thread.sleep(1000);
+		for(int i = 5; i > 0; i--){
+		  System.out.println("Second Thread: " + i);
+		  Thread.sleep(500);
+		}
+	}catch (InterruptedException e){
+		System.out.println("Child interrupted. " + e);
 	}
-	} catch (InterruptedException e) {
-	System.out.println("Main thread interrupted");
-	}
-	}
+	System.out.println("Exiting child Thread");
 }
+}
+
